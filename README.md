@@ -1,2 +1,2 @@
 Web client of Kowelka.
-Angular application, use Apollo for communications with server part.
+Angular application, uses Apollo for communications with server part.
