@@ -1,0 +1,36 @@
+<div *ngIf="selectedOrderId>0 && order!=null" class="table-responsive" id="order-content">
+    <table class="table table-bordered table-sm table-striped">
+        <thead>
+            <tr class="bordered">
+                <th colspan="3" class="bordered">
+                    <span [(innerHTML)]="order.name"></span>
+                    <span>(&nbsp;id&nbsp;#</span>
+                    <span [(innerHTML)]="selectedOrderId"></span>
+                    <span>)</span>
+                </th>
+                <th>
+                    <button type="button" class="btn btn-block btn-warning noprint" (click)="printOrder()">
+                        <fa [name]="'print'" [size]="1" ></fa>
+                    </button>
+                </th>
+            </tr>
+            <tr class="bordered">
+              <th scope="col" class="bordered">&nbsp;</th>
+              <th scope="col" class="bordered">Product</th>
+              <th scope="col" class="bordered">Quantity</th>
+              <th scope="col" class="bordered">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let ol of order.orderlines; let i = index" class="bordered">
+                <td class="bordered">{{i+1}}</td>
+                <td class="bordered">{{ol.product.name}}</td>
+                <td class="bordered">{{ol.numproducts}}</td>
+                <td>
+                    <button class="btn btn-warning noprint" (click)="removeProductBtn(ol.product.id, order.id)"><fa [name]="'minus'" [size]="1" ></fa></button>
+                    <button class="btn btn-warning noprint" (click)="addProductBtn(ol.product.id)"><fa [name]="'plus'" [size]="1" ></fa></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

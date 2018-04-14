@@ -1,0 +1,7 @@
+<div [class.alert]="true"
+     [class.alert-success]="message.level==Level.success"
+     [class.alert-info]="message.level==Level.info"
+     [class.alert-warning]="message.level==Level.warning"
+     [class.alert-danger]="message.level==Level.danger"
+     [(innerHTML)]="message.message" >
+</div>

@@ -1,0 +1,16 @@
+<div class="col-xs-3 p-a-1">
+    <button class="btn btn-block btn-outline-primary"
+            [class.active]="selectedDatamaster?false:true"
+            (click)="selectDatamaster(0)" >
+        ALL
+    </button>
+    <button *ngFor="let data of arrDatas" class="btn btn-outline-primary btn-block"
+            [class.active]="selectedDatamaster?data.id == selectedDatamaster.id:false"
+            [sh-context]="items"
+            [sh-data-context]="{'id':data.id, 'dataObject':this}"
+            (click)="selectDatamaster(data.id)" >
+        {{data.name}}
+    </button>
+    <button class="btn btn-block btn-warning" [(innerHTML)]="operation" (click)="operationDatamaster()"></button>
+    <input class="form-control" [(ngModel)]="newDatamaster"/>
+</div>
