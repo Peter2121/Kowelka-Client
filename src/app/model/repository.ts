@@ -126,7 +126,7 @@ export class Repository {
         saveOrderNameToDB(oname: $oname)
       }`;
 
-    constructor(private apollo: Apollo) {
+    constructor(private apollo : Apollo) {
         
         this.products = this.apollo.watchQuery<productQuery>({
             query: this.quAllProducts
@@ -164,7 +164,7 @@ export class Repository {
         return this.ordernames;
     }
     
-    getOrder(orderid: number): Observable<Order> {
+    getOrder(orderid : number): Observable<Order> {
         this.order = this.apollo.watchQuery<orderQuery>({
             query: this.quOrder,
             variables: {
@@ -179,7 +179,7 @@ export class Repository {
         return this.order;    
     }
 
-    addProduct(name: string, catid: number): Observable<any> {
+    addProduct(name : string, catid : number): Observable<any> {
         console.log('Sending mutation: ', this.mutAddProduct);
         return this.apollo.mutate({
           mutation: this.mutAddProduct,
@@ -194,9 +194,9 @@ export class Repository {
         });        
     }
 
-    addOrderLine(prodid: number, prodnum: number, orderid: number): Observable<any> {
+    addOrderLine(prodid : number, prodnum : number, orderid : number): Observable<any> {
         console.log('Sending mutation: ', this.mutAddOrderLine);
-        var orderline : InOrderline = new InOrderline(prodid, prodnum);
+        let orderline : InOrderline = new InOrderline(prodid, prodnum);
         return this.apollo.mutate({
           mutation: this.mutAddOrderLine,
           variables: {
@@ -212,7 +212,7 @@ export class Repository {
                 
     }
 
-    increaseOrderLine(prodid: number, orderid: number): Observable<any> {
+    increaseOrderLine(prodid : number, orderid : number): Observable<any> {
         console.log('Sending mutation: ', this.mutIncOrderLine);        
         return this.apollo.mutate({
           mutation: this.mutIncOrderLine,
@@ -227,7 +227,7 @@ export class Repository {
         });                        
     }
 
-    decreaseOrderLine(prodid: number, orderid: number): Observable<any> {
+    decreaseOrderLine(prodid : number, orderid : number): Observable<any> {
         console.log('Sending mutation: ', this.mutDecOrderLine);        
         return this.apollo.mutate({
           mutation: this.mutDecOrderLine,
@@ -242,7 +242,7 @@ export class Repository {
         });                
     }
 
-    deleteCategory(id: number): Observable<any> {
+    deleteCategory(id : number): Observable<any> {
         console.log('Sending mutation: ', this.mutDeleteCategory);        
         return this.apollo.mutate({
           mutation: this.mutDeleteCategory,
@@ -256,7 +256,7 @@ export class Repository {
         });        
     }
 
-    deleteOrder(id: number): Observable<any> {
+    deleteOrder(id : number): Observable<any> {
         console.log('Sending mutation: ', this.mutDeleteOrder);        
         return this.apollo.mutate({
           mutation: this.mutDeleteOrder,
@@ -270,7 +270,7 @@ export class Repository {
         });                
     }
     
-    deleteProduct(id: number): Observable<any> {
+    deleteProduct(id : number): Observable<any> {
         console.log('Sending mutation: ', this.mutDeleteProd);        
         return this.apollo.mutate({
           mutation: this.mutDeleteProd,
@@ -284,7 +284,7 @@ export class Repository {
         });        
     }
 
-    addOrdername(name: string): Observable<any> {
+    addOrdername(name : string): Observable<any> {
         console.log('Sending mutation: ', this.mutAddOrderName);
         return this.apollo.mutate({
           mutation: this.mutAddOrderName,
@@ -298,7 +298,7 @@ export class Repository {
         });
     }
     
-    addCategory(name: string): Observable<any> {
+    addCategory(name : string): Observable<any> {
         console.log('Sending mutation: ', this.mutAddCategory);
         return this.apollo.mutate({
           mutation: this.mutAddCategory,
@@ -312,7 +312,7 @@ export class Repository {
         });
     }
     
-   saveCategory(category: InCat): Observable<any> {
+   saveCategory(category : InCat): Observable<any> {
         console.log('Sending mutation: ', this.mutSaveCategory);
         return this.apollo.mutate({
           mutation: this.mutSaveCategory,
@@ -326,7 +326,7 @@ export class Repository {
         });
     }    
     
-   saveOrderName(ordername: InOrdername): Observable<any> {
+   saveOrderName(ordername : InOrdername): Observable<any> {
         console.log('Sending mutation: ', this.mutSaveOrderName);
         return this.apollo.mutate({
           mutation: this.mutSaveOrderName,
@@ -341,7 +341,7 @@ export class Repository {
         });       
    }
    
-   saveProduct(product: InProd): Observable<any> {
+   saveProduct(product : InProd): Observable<any> {
         console.log('Sending mutation: ', this.mutSaveProduct);
         return this.apollo.mutate({
           mutation: this.mutSaveProduct,
@@ -355,7 +355,7 @@ export class Repository {
         });
     }    
     
-    getDatas(type: string): Observable<any[]> {
+    getDatas(type : string): Observable<any[]> {
         console.log('Getting data of '+type+' type');
         switch(type) {
             case "category":
@@ -369,7 +369,7 @@ export class Repository {
         }
     }
      
-    deleteData(type: string, id: number): Observable<any> {
+    deleteData(type : string, id : number): Observable<any> {
         switch(type) {
             case "category":
                 return this.deleteCategory(id);
@@ -382,7 +382,7 @@ export class Repository {
         }        
     }
 
-    addDatamaster(type: string, name: string): Observable<any> {
+    addDatamaster(type : string, name : string): Observable<any> {
         console.log('Adding data of '+type+' type');
         switch(type) {
             case "category":
@@ -394,7 +394,7 @@ export class Repository {
         }        
     }
     
-    saveDatamaster(type: string, data: InDatamaster): Observable<any> {
+    saveDatamaster(type : string, data : InDatamaster): Observable<any> {
         switch(type) {
             case "category":
                 return this.saveCategory(data);

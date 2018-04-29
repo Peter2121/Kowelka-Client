@@ -4,8 +4,8 @@ import { Apollo, ApolloModule} from 'apollo-angular';
 import { HttpLink, HttpLinkModule} from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
-//const PROTOCOL = "http";
-//const PORT = 8080;
+// const PROTOCOL = "http";
+// const PORT = 8080;
 
 @NgModule({
   exports: [
@@ -17,7 +17,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 
 export class GraphQLClient {
     
-    constructor(apollo: Apollo, httpLink: HttpLink) {
+    constructor(apollo : Apollo, httpLink : HttpLink) {
         const port = location.port ? ':'+location.port : '';
 //        const baseUrl = `${PROTOCOL}://${location.hostname}:${PORT}/graphql`;
 //        const baseUrl = `${location.protocol}://${location.hostname}:${port}/graphql`;

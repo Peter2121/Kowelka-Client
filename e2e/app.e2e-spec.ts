@@ -1,7 +1,7 @@
 import { AppPage } from './app.po';
 
 describe('kowelka-client App', () => {
-  let page: AppPage;
+  let page : AppPage;
 
   beforeEach(() => {
     page = new AppPage();

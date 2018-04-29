@@ -12,7 +12,7 @@ export enum Level {
 export class Message {
     public level: Level;
     public message: string;
-    constructor(lev: Level, mess: string) {
+    constructor(lev : Level, mess : string) {
         this.level=lev;
         this.message=mess;
     }

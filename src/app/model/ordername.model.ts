@@ -4,4 +4,4 @@ export class OrderName extends Datamaster {}
 
 export type ordernameQuery = {    
     readAllOrderNamesFromDB: OrderName[];
-}
+};

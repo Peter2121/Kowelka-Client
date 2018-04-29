@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Message } from "../view/message.component"
+import { Message } from "../view/message.component";
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
@@ -11,7 +11,7 @@ export class Broker {
     private objSubjDatamasterSelect = new Object();
     private subjMessage = new Subject<Message>();
     
-    addDatamasterSubject(name: string) {
+    addDatamasterSubject(name : string) {
         this.objSubjDatamasterSelect[name] = new Subject<number>();
     }
 
@@ -19,23 +19,23 @@ export class Broker {
         return this.subjMessage.asObservable();
     }
     
-    sendMessage(mess: Message) {
+    sendMessage(mess : Message) {
         this.subjMessage.next(mess);
     }
 
-    sendSelectDatamaster(type: string, id: number) {
+    sendSelectDatamaster(type : string, id : number) {
         console.log('Broker received: '+ type + " " + id.toString()); 
         if(id==null) this.objSubjDatamasterSelect[type].next();
         else this.objSubjDatamasterSelect[type].next(id);
     }
   
-    getSelectDatamaster(type: string): Observable<number> {
+    getSelectDatamaster(type : string): Observable<number> {
         return this.objSubjDatamasterSelect[type].asObservable();
     }
     
-    sendAddProduct(id: number) {
+    sendAddProduct(id : number) {
         console.log('Broker received id product: ' + id.toString()); 
-        if((id==null)||(id==0)) return;
+        if((id==null)||(id===0)) return;
         else this.subjAddProduct.next(id);
     }
         

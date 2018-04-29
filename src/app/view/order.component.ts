@@ -1,11 +1,11 @@
-import { Component, AfterContentInit } from "@angular/core";
+import { Component, OnDestroy, AfterContentInit } from "@angular/core";
 import { Order } from "../model/order.model";
 import { OrderLine } from "../model/orderline.model";
 import { Repository } from "../model/repository";
 import { Broker } from "../model/broker";
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { Level, Message } from "../view/message.component"
+import { Level, Message } from "../view/message.component";
 
 
 @Component({
@@ -15,7 +15,7 @@ import { Level, Message } from "../view/message.component"
     providers: []
 })
 
-export class OrderComponent implements AfterContentInit {
+export class OrderComponent implements AfterContentInit, OnDestroy {
     
     public order: Order = null;
     public curOrderline: OrderLine = null;
@@ -25,7 +25,7 @@ export class OrderComponent implements AfterContentInit {
     public selectedOrderId: number = 0;
     public addingProductId: number = 0;
     
-    constructor(private repository: Repository, private broker: Broker) {}
+    constructor(private repository : Repository, private broker : Broker) {}
     
     ngAfterContentInit() {
         this.subsOrdername = this.broker.getSelectDatamaster(this.subscrDatatype).subscribe(id => { 
@@ -43,7 +43,7 @@ export class OrderComponent implements AfterContentInit {
     }
     
     showOrder() {
-        if(this.selectedOrderId==0) return;
+        if(this.selectedOrderId===0) return;
         this.repository.getOrder(this.selectedOrderId).subscribe((data) => {
             console.log('Received data for order: ' + data.name);
             this.order = data;
@@ -52,8 +52,8 @@ export class OrderComponent implements AfterContentInit {
     }
     
     addProduct() {
-        if((this.selectedOrderId==0)||(this.addingProductId==0)) return;
-        this.curOrderline = this.order.orderlines.find(ol => ol.product.id == this.addingProductId);
+        if((this.selectedOrderId===0)||(this.addingProductId===0)) return;
+        this.curOrderline = this.order.orderlines.find(ol => ol.product.id === this.addingProductId);
         if (this.curOrderline!=null) 
             this.repository.increaseOrderLine(this.addingProductId,this.selectedOrderId).subscribe((data) => {
             console.log('Result: ', data.data.incOrderLine);
@@ -75,7 +75,7 @@ export class OrderComponent implements AfterContentInit {
             });
     }
     
-    removeProductBtn(idprod: number, idorder: number) {
+    removeProductBtn(idprod : number, idorder : number) {
         console.log('Removing product: ' + idprod + ' from order ' + idorder);
         this.repository.decreaseOrderLine(idprod,idorder).subscribe((data) => {
         console.log('Result: ', data.data.decOrderLine);
@@ -88,14 +88,14 @@ export class OrderComponent implements AfterContentInit {
         });
     }
 
-    addProductBtn(idprod: number) {
+    addProductBtn(idprod : number) {
         this.addingProductId = idprod;
         this.addProduct();
     }
     
     printOrder() {
         console.log('Printing order: '+this.order.id); 
-        var printContents, popupWin;
+        let printContents, popupWin;
         printContents = document.getElementById('order-content').innerHTML;
         popupWin = window.open('', '_blank', 'height=auto,width=auto');
         popupWin.document.open();

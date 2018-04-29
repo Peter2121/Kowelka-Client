@@ -4,7 +4,7 @@ import { Repository } from "../model/repository";
 import { Broker } from "../model/broker";
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { Level, Message } from "../view/message.component"
+import { Level, Message } from "../view/message.component";
 import { IShContextMenuItem } from 'ng2-right-click-menu';
 
 @Component({
@@ -14,7 +14,7 @@ import { IShContextMenuItem } from 'ng2-right-click-menu';
     providers: []
 })
 
-export class ProductComponent implements AfterContentInit {
+export class ProductComponent implements AfterContentInit, OnDestroy {
     
     private selectedCategoryId: number = 0;
     private selectedProduct: Product = null;
@@ -63,30 +63,30 @@ export class ProductComponent implements AfterContentInit {
         return this.selectedCategoryId;
     }
     
-    setSelectedCategoryId(id: number): void {
+    setSelectedCategoryId(id : number): void {
         this.selectedCategoryId=id;
     }
     
     filterProducts() {
-        if(this.selectedCategoryId==0) this.productsDataFiltered = this.productsData;
-        else this.productsDataFiltered = this.productsData.filter(p => p.catid == this.selectedCategoryId);
+        if(this.selectedCategoryId===0) this.productsDataFiltered = this.productsData;
+        else this.productsDataFiltered = this.productsData.filter(p => p.catid === this.selectedCategoryId);
     }
     
-    selectProduct(selectedId: number) {
+    selectProduct(selectedId : number) {
         console.log('Selected product id: ' + selectedId);
-        this.selectedProduct=this.productsData.find(p => p.id == selectedId);
+        this.selectedProduct=this.productsData.find(p => p.id === selectedId);
         this.operation = this.operationAdd;
     }
     
-    addProductToOrder(selectedId: number) {
+    addProductToOrder(selectedId : number) {
         console.log('Adding product id: ' + selectedId);
         this.selectProduct(selectedId);
         this.broker.sendAddProduct(selectedId);
     }
     
     operationProduct() {
-        if(this.operation == this.operationAdd) {
-            if(this.selectedCategoryId==0) return;
+        if(this.operation === this.operationAdd) {
+            if(this.selectedCategoryId===0) return;
             this.repository.addProduct(this.newProduct, this.selectedCategoryId).subscribe(data => {
               console.log('New prodId: ', data.data.addProdToDB);
               if(data.data.addProdToDB>0) this.broker.sendMessage(new Message(Level.success,"Added product: "+data.data.addProdToDB));
@@ -96,7 +96,7 @@ export class ProductComponent implements AfterContentInit {
               console.log('There was an error adding category', error);
             });
         } 
-        else if(this.operation == this.operationEdit) {
+        else if(this.operation === this.operationEdit) {
             this.editingProduct = new Product(this.selectedProduct.id, this.newProduct, this.selectedProduct.catname, this.selectedProduct.catid);
             this.repository.saveProduct(this.editingProduct).subscribe(data => {
                 console.log('Result: ', data.data.saveProdToDB);
@@ -109,11 +109,11 @@ export class ProductComponent implements AfterContentInit {
         }
     }
 
-    deleteProduct(event: any) {
-        var id = event.dataContext.id;
-        var parent = event.dataContext.dataObject;
+    deleteProduct(event : any) {
+        let id = event.dataContext.id;
+        let parent = event.dataContext.dataObject;
         console.log('Trying to delete product: ', id);
-        var delProduct : Product = parent.productsData.find(p => p.id === id);
+        let delProduct : Product = parent.productsData.find(p => p.id === id);
         parent.newProduct = delProduct.name;
         parent.repository.deleteProduct(id).subscribe(data => {
           console.log('Result: ', data.data.removeProdFromDB);
@@ -125,12 +125,12 @@ export class ProductComponent implements AfterContentInit {
         });
     }
     
-    editProduct(event: any) {
-        var id = event.dataContext.id;
-        var parent = event.dataContext.dataObject;
+    editProduct(event : any) {
+        let id = event.dataContext.id;
+        let parent = event.dataContext.dataObject;
         console.log('Want to edit product: ', id);
         parent.operation = parent.operationEdit;
-        parent.selectedProduct=parent.productsData.find(p => p.id == id);
+        parent.selectedProduct=parent.productsData.find(p => p.id === id);
         parent.newProduct = parent.selectedProduct.name;
     }
         

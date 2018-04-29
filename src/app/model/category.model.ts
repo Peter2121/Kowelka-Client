@@ -4,4 +4,4 @@ export class Category extends Datamaster {}
 
 export type categoryQuery = {    
     readAllCatFromDB: Category[];
-}
+};
